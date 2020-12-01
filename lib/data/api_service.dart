@@ -10,8 +10,6 @@ class ApiService {
 
   ApiService(this._client);
 
-  static const baseUrl = 'https://developers.zomato.com/api/v2.1/';
-
   static const token = '7b0f4cb74534b50c0f080c287cfcd06e';
 
   Future<RestaurantListResponse> searchRestaurant(String query) async {
