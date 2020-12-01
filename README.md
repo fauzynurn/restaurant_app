@@ -1,6 +1,6 @@
 # restaurant_app
 
-Restaurant App (Dicoding Submission)
+Restaurant App (Dicoding submission)
 
 ## Getting Started
 
