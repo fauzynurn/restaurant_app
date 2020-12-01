@@ -1,0 +1,13 @@
+class Result<T> {
+  Status status;
+  T data;
+  String message;
+
+  Result.loading() : status = Status.LOADING;
+
+  Result.completed(this.data) : status = Status.COMPLETED;
+
+  Result.error(this.message) : status = Status.ERROR;
+}
+
+enum Status { LOADING, COMPLETED, ERROR }

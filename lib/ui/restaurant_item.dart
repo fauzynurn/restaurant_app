@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/ui/data/model/restaurant.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurant_app/data/model/restaurant.dart';
+
+import '../ui/util/currency_converter.dart';
 
 class RestaurantItem extends StatelessWidget {
   final Restaurant restaurant;
@@ -15,55 +18,72 @@ class RestaurantItem extends StatelessWidget {
           child: Container(
             color: Colors.grey.shade300,
             child: Hero(
-              tag: restaurant.id,
-              child: Image.network(
-                restaurant.url,
-                fit: BoxFit.fill,
-                width: 135,
-                height: 100,
-              ),
-            ),
+                tag: restaurant.id,
+                child: FadeInImage.assetNetwork(
+                    width: 135,
+                    height: 100,
+                    fit: BoxFit.fill,
+                    placeholder: 'assets/placeholder.png',
+                    imageErrorBuilder: (BuildContext context, Object error,
+                            StackTrace stackTrace) =>
+                        Image.asset(
+                          'assets/placeholder.png',
+                          width: 135,
+                          height: 100,
+                        ),
+                    image: restaurant.thumb)),
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(left: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                restaurant.name,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16),
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Container(
-                      margin: const EdgeInsets.only(right: 2),
-                      child: Icon(
-                        Icons.location_on,
-                        color: Colors.grey,
-                        size: 18,
-                      )),
-                  Text(restaurant.city)
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Container(
-                      margin: const EdgeInsets.only(right: 2),
-                      child: Icon(
-                        Icons.star,
-                        color: Colors.yellow.shade600,
-                        size: 18,
-                      )),
-                  Text(restaurant.rating.toString())
-                ],
-              )
-            ],
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(left: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  restaurant.name,
+                  style: GoogleFonts.oxygen(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 16),
+                ),
+                Text(
+                  restaurant.cuisines,
+                  style: GoogleFonts.oxygen(
+                      color: Colors.grey.shade600,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.attach_money_rounded,
+                      color: Colors.grey,
+                      size: 18,
+                    ),
+                    Text(
+                      '${restaurant.averageCostForTwo.toString().currencyFormat} for two',
+                      style: TextStyle(fontSize: 12),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                        margin: const EdgeInsets.only(right: 2),
+                        child: Icon(
+                          Icons.star,
+                          color: Colors.yellow.shade600,
+                          size: 18,
+                        )),
+                    Text(restaurant.userRating.aggregateRating.toString())
+                  ],
+                )
+              ],
+            ),
           ),
         )
       ],
