@@ -5,6 +5,7 @@ import 'package:restaurant_app/ui/restaurant_item.dart';
 import 'package:restaurant_app/ui/screen/detail/restaurant_detail_screen.dart';
 import 'package:restaurant_app/ui/screen/favorite/favorite_screen.dart';
 import 'package:restaurant_app/ui/screen/search/search_screen.dart';
+import 'package:restaurant_app/ui/screen/setting/setting_screen.dart';
 
 import '../result.dart';
 import 'home_controller.dart';
@@ -112,21 +113,23 @@ class HomeScreen extends GetView<HomeController> {
           ),
         ),
         IconButton(
+          constraints: BoxConstraints(),
           icon: Icon(
             Icons.favorite_rounded,
             color: Colors.black,
           ),
-          splashRadius: 25,
+          splashRadius: 18,
           onPressed: () => Get.toNamed(FavoriteScreen.routeName),
-        ).paddingSymmetric(horizontal: 2),
+        ),
         IconButton(
+          constraints: BoxConstraints(),
           icon: Icon(
             Icons.settings,
             color: Colors.black,
           ),
-          splashRadius: 25,
-          onPressed: () => Get.toNamed(FavoriteScreen.routeName),
-        ).paddingSymmetric(horizontal: 2)
+          splashRadius: 18,
+          onPressed: () => Get.toNamed(SettingScreen.routeName),
+        )
       ],
     );
   }

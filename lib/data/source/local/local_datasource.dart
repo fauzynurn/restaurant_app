@@ -1,9 +1,15 @@
 import 'package:restaurant_app/data/model/restaurant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 class LocalDataSource {
   static Database _db;
+  final SharedPreferences _pref;
+
+  LocalDataSource(this._pref);
+
   static String _favoriteTable = 'favorite';
+  static String _restaurantNotification = 'res_notif';
 
   Future<Database> get database async {
     if (_db == null) {
@@ -12,6 +18,12 @@ class LocalDataSource {
 
     return _db;
   }
+
+  void setRestaurantNotification(bool value) async {
+    await _pref.setBool(_restaurantNotification, value);
+  }
+
+  bool getRestaurantNotification() => _pref.getBool(_restaurantNotification) ?? false;
 
   Future<Database> _initializeDb() async {
     var path = await getDatabasesPath();

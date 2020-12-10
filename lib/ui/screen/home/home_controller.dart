@@ -8,7 +8,7 @@ import 'package:restaurant_app/ui/screen/result.dart';
 
 class HomeController extends GetxController {
   final ApiService _service;
-
+  
   HomeController(this._service);
 
   final _restaurantList = Rx<Result<List<Restaurant>>>(Result.loading());

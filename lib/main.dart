@@ -8,6 +8,8 @@ import 'package:restaurant_app/ui/screen/favorite/favorite_screen.dart';
 import 'package:restaurant_app/ui/screen/home/home_module.dart';
 import 'package:restaurant_app/ui/screen/home/home_screen.dart';
 import 'package:restaurant_app/ui/screen/search/search_module.dart';
+import 'package:restaurant_app/ui/screen/setting/setting_module.dart';
+import 'package:restaurant_app/ui/screen/setting/setting_screen.dart';
 
 import 'ui/screen/search/search_screen.dart';
 
@@ -41,7 +43,11 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: FavoriteScreen.routeName,
             page: () => FavoriteScreen(),
-            binding: FavoriteModule())
+            binding: FavoriteModule()),
+        GetPage(
+            name: SettingScreen.routeName,
+            page: () => SettingScreen(),
+            binding: SettingModule())
       ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
