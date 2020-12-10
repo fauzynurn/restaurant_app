@@ -56,7 +56,7 @@ class SearchScreen extends GetView<SearchController> {
                       itemCount: controller.searchResult.data.length,
                       itemBuilder: (context, index) => GestureDetector(
                           onTap: () {
-                            Get.toNamed(RestaurantDetail.routeName,
+                            Get.toNamed(RestaurantDetailScreen.routeName,
                                 arguments: controller.searchResult.data[index]);
                           },
                           child: RestaurantItem(

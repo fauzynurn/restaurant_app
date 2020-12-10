@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_app/ui/restaurant_item.dart';
 import 'package:restaurant_app/ui/screen/detail/restaurant_detail_screen.dart';
+import 'package:restaurant_app/ui/screen/favorite/favorite_screen.dart';
 import 'package:restaurant_app/ui/screen/search/search_screen.dart';
 
 import '../result.dart';
@@ -21,6 +22,7 @@ class HomeScreen extends GetView<HomeController> {
           brightness: Brightness.light,
           elevation: 0,
           pinned: true,
+          titleSpacing: 0,
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(45),
             child: Align(
@@ -36,11 +38,7 @@ class HomeScreen extends GetView<HomeController> {
               ),
             ),
           ),
-          title: GestureDetector(
-              onTap: () {
-                Get.toNamed(SearchScreen.routeName);
-              },
-              child: Hero(tag: 'search-bar', child: _buildSearchBar())),
+          title: _buildSearchBar().paddingOnly(left: 12),
         ),
         SliverFillRemaining(
           child: Obx(() {
@@ -54,8 +52,9 @@ class HomeScreen extends GetView<HomeController> {
                   itemCount: controller.restaurantList.data.length,
                   itemBuilder: (context, index) => GestureDetector(
                       onTap: () {
-                        Get.toNamed(RestaurantDetail.routeName,
-                            arguments: controller.restaurantList.data[index]);
+                        Get.toNamed(RestaurantDetailScreen.routeName,
+                            arguments:
+                                controller.restaurantList.data[index].id);
                       },
                       child: RestaurantItem(
                           controller.restaurantList.data[index])),
@@ -72,32 +71,63 @@ class HomeScreen extends GetView<HomeController> {
   }
 
   Widget _buildSearchBar() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          borderRadius: BorderRadius.all(Radius.circular(8))),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                'Search restaurant or cuisine',
-                style: GoogleFonts.oxygen(
-                    color: Colors.grey.shade500,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              Get.toNamed(SearchScreen.routeName);
+            },
+            child: Hero(
+              tag: 'search-bar',
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Search restaurant or cuisine',
+                          style: GoogleFonts.oxygen(
+                              color: Colors.grey.shade500,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Icon(
+                        Icons.search_rounded,
+                        size: 20,
+                        color: Colors.grey.shade500,
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
-            Icon(
-              Icons.search_rounded,
-              size: 20,
-              color: Colors.grey.shade500,
-            )
-          ],
+          ),
         ),
-      ),
+        IconButton(
+          icon: Icon(
+            Icons.favorite_rounded,
+            color: Colors.black,
+          ),
+          splashRadius: 25,
+          onPressed: () => Get.toNamed(FavoriteScreen.routeName),
+        ).paddingSymmetric(horizontal: 2),
+        IconButton(
+          icon: Icon(
+            Icons.settings,
+            color: Colors.black,
+          ),
+          splashRadius: 25,
+          onPressed: () => Get.toNamed(FavoriteScreen.routeName),
+        ).paddingSymmetric(horizontal: 2)
+      ],
     );
   }
 }

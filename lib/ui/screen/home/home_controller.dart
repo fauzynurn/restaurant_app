@@ -20,14 +20,18 @@ class HomeController extends GetxController {
     super.onInit();
 
     _service.getRestaurantList().then(
-        (value) => _restaurantList.value = Result.completed(value.restaurants),
+        (value) =>
+        _restaurantList.value = Result.completed(value.restaurants),
         onError: (error) {
-      DioError dioError = error;
-      if (dioError.error is SocketException) {
-        _restaurantList.value =
-            Result.error('There is a problem with the internet connection');
-      } else {
-        _restaurantList.value = Result.error('Data cannot be fetched');
+      if (error is DioError) {
+        if (error is SocketException) {
+          _restaurantList.value =
+              Result.error('There is a problem with the internet connection');
+        } else {
+          _restaurantList.value = Result.error('Data cannot be fetched');
+        }
+      }else{
+        _restaurantList.value = Result.error(_restaurantList.value.message);
       }
     });
   }

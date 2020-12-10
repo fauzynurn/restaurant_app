@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_app/ui/screen/detail/restaurant_detail_module.dart';
 import 'package:restaurant_app/ui/screen/detail/restaurant_detail_screen.dart';
+import 'package:restaurant_app/ui/screen/favorite/favorite_module.dart';
+import 'package:restaurant_app/ui/screen/favorite/favorite_screen.dart';
 import 'package:restaurant_app/ui/screen/home/home_module.dart';
 import 'package:restaurant_app/ui/screen/home/home_screen.dart';
 import 'package:restaurant_app/ui/screen/search/search_module.dart';
@@ -33,9 +35,13 @@ class MyApp extends StatelessWidget {
             page: () => SearchScreen(),
             binding: SearchModule()),
         GetPage(
-            name: RestaurantDetail.routeName,
-            page: () => RestaurantDetail(),
-            binding: RestaurantDetailModule())
+            name: RestaurantDetailScreen.routeName,
+            page: () => RestaurantDetailScreen(),
+            binding: RestaurantDetailModule()),
+        GetPage(
+            name: FavoriteScreen.routeName,
+            page: () => FavoriteScreen(),
+            binding: FavoriteModule())
       ],
       theme: ThemeData(
         primarySwatch: Colors.blue,

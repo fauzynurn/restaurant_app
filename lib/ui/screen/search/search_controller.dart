@@ -21,12 +21,15 @@ class SearchController extends GetxController {
     _service.searchRestaurant(query).then(
         (value) => _searchResult.value = Result.completed(value.restaurants),
         onError: (error) {
-      DioError dioError = error;
-      if (dioError.error is SocketException) {
-        _searchResult.value =
-            Result.error('There is a problem with the internet connection');
+      if (error is DioError) {
+        if (error is SocketException) {
+          _searchResult.value =
+              Result.error('There is a problem with the internet connection');
+        } else {
+          _searchResult.value = Result.error('Data cannot be fetched');
+        }
       } else {
-        _searchResult.value = Result.error('Data cannot be fetched');
+        _searchResult.value = Result.error(_searchResult.value.message);
       }
     });
   }

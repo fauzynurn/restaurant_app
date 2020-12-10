@@ -79,7 +79,7 @@ class RestaurantItem extends StatelessWidget {
                           color: Colors.yellow.shade600,
                           size: 18,
                         )),
-                    Text(restaurant.userRating.aggregateRating.toString())
+                    Text(restaurant.simpleRating)
                   ],
                 )
               ],

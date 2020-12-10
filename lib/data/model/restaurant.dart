@@ -15,8 +15,8 @@ class RestaurantListResponse {
   factory RestaurantListResponse.fromJson(Map<String, dynamic> json) {
     return RestaurantListResponse(
       resultsShown: json["results_shown"],
-      restaurants: List<Restaurant>.from(
-          json["restaurants"].map((x) => Restaurant.fromJson(x['restaurant']))),
+      restaurants: List<Restaurant>.from(json["restaurants"]
+          .map((x) => Restaurant.fromJson(x['restaurant']))),
     );
   }
 }
@@ -26,19 +26,19 @@ class RestaurantResponse {
     this.restaurant,
   });
 
-  final Restaurant restaurant;
+  final RestaurantDetail restaurant;
 
   factory RestaurantResponse.fromRawJson(String str) =>
       RestaurantResponse.fromJson(json.decode(str));
 
   factory RestaurantResponse.fromJson(Map<String, dynamic> json) =>
       RestaurantResponse(
-        restaurant: Restaurant.fromJson(json["restaurant"]),
+        restaurant: RestaurantDetail.fromJson(json["restaurant"]),
       );
 }
 
-class Restaurant {
-  Restaurant({
+class RestaurantDetail {
+  RestaurantDetail({
     this.id,
     this.name,
     this.location,
@@ -72,11 +72,11 @@ class Restaurant {
   final String phoneNumbers;
   final List<String> establishment;
 
-  factory Restaurant.fromRawJson(String str) =>
-      Restaurant.fromJson(json.decode(str));
+  factory RestaurantDetail.fromRawJson(String str) =>
+      RestaurantDetail.fromJson(json.decode(str));
 
-  factory Restaurant.fromJson(Map<String, dynamic> json) {
-    return Restaurant(
+  factory RestaurantDetail.fromJson(Map<String, dynamic> json) {
+    return RestaurantDetail(
       id: json["id"],
       name: json["name"],
       location: Location.fromJson(json["location"]),
@@ -94,6 +94,54 @@ class Restaurant {
       establishment: List<String>.from(json["establishment"].map((x) => x)),
     );
   }
+}
+
+class Restaurant {
+  Restaurant(
+      {this.id,
+      this.name,
+      this.averageCostForTwo,
+      this.cuisines,
+      this.thumb,
+      this.simpleRating});
+
+  final String id;
+  final String name;
+  final int averageCostForTwo;
+  final String cuisines;
+  final String thumb;
+  final String simpleRating;
+
+  factory Restaurant.fromMap(Map<String, dynamic> json) {
+    return Restaurant(
+      id: json["id"],
+      name: json["name"],
+      averageCostForTwo: json["average_cost_for_two"],
+      cuisines: json["cuisines"],
+      thumb: json["thumb"],
+      simpleRating: json["user_rating"]
+    );
+  }
+
+  factory Restaurant.fromJson(Map<String, dynamic> json) {
+    return Restaurant(
+        id: json["id"],
+        name: json["name"],
+        averageCostForTwo: json["average_cost_for_two"],
+        cuisines: json["cuisines"],
+        thumb: json["thumb"],
+        simpleRating: json["user_rating"]["aggregate_rating"]
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "name": name,
+        "average_cost_for_two": averageCostForTwo,
+        "user_rating": simpleRating,
+        "cuisines": cuisines,
+        "thumb": thumb,
+      };
 }
 
 class Location {
@@ -122,7 +170,7 @@ class Location {
   factory Location.fromRawJson(String str) =>
       Location.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toMap());
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
         address: json["address"] ?? '',
@@ -136,7 +184,7 @@ class Location {
         localityVerbose: json["locality_verbose"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "address": address,
         "locality": locality,
         "city": city,
@@ -161,7 +209,7 @@ class UserRating {
   factory UserRating.fromRawJson(String str) =>
       UserRating.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toMap());
 
   factory UserRating.fromJson(Map<String, dynamic> json) => UserRating(
       aggregateRating: json["aggregate_rating"].toString(),
@@ -169,8 +217,19 @@ class UserRating {
       ratingText: json["rating_text"],
       ratingColor: json["rating_color"]);
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "aggregate_rating": aggregateRating,
         "votes": votes,
       };
+}
+
+extension RestaurantConverter on RestaurantDetail{
+  Restaurant toRestaurant() => Restaurant(
+      id: this.id,
+      name: this.name,
+      averageCostForTwo: this.averageCostForTwo,
+      cuisines: this.cuisines,
+      thumb: this.thumb,
+      simpleRating: this.userRating.aggregateRating
+  );
 }
