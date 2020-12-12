@@ -40,8 +40,10 @@ class FavoriteScreen extends GetView<FavoriteController> {
                     itemBuilder: (context, index) => GestureDetector(
                         onTap: () {
                           Get.toNamed(RestaurantDetailScreen.routeName,
-                              arguments:
-                                  controller.favoriteList.data[index].id);
+                                  arguments:
+                                      controller.favoriteList.data[index].id)
+                              .then((value) =>
+                                  controller.fetchFavoriteRestaurant());
                         },
                         child: RestaurantItem(
                             controller.favoriteList.data[index])),

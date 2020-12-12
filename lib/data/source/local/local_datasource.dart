@@ -23,7 +23,8 @@ class LocalDataSource {
     await _pref.setBool(_restaurantNotification, value);
   }
 
-  bool getRestaurantNotification() => _pref.getBool(_restaurantNotification) ?? false;
+  bool getRestaurantNotification() =>
+      _pref.getBool(_restaurantNotification) ?? false;
 
   Future<Database> _initializeDb() async {
     var path = await getDatabasesPath();

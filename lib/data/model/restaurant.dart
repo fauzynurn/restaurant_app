@@ -15,8 +15,8 @@ class RestaurantListResponse {
   factory RestaurantListResponse.fromJson(Map<String, dynamic> json) {
     return RestaurantListResponse(
       resultsShown: json["results_shown"],
-      restaurants: List<Restaurant>.from(json["restaurants"]
-          .map((x) => Restaurant.fromJson(x['restaurant']))),
+      restaurants: List<Restaurant>.from(
+          json["restaurants"].map((x) => Restaurant.fromJson(x['restaurant']))),
     );
   }
 }
@@ -114,13 +114,12 @@ class Restaurant {
 
   factory Restaurant.fromMap(Map<String, dynamic> json) {
     return Restaurant(
-      id: json["id"],
-      name: json["name"],
-      averageCostForTwo: json["average_cost_for_two"],
-      cuisines: json["cuisines"],
-      thumb: json["thumb"],
-      simpleRating: json["user_rating"]
-    );
+        id: json["id"],
+        name: json["name"],
+        averageCostForTwo: json["average_cost_for_two"],
+        cuisines: json["cuisines"],
+        thumb: json["thumb"],
+        simpleRating: json["user_rating"]);
   }
 
   factory Restaurant.fromJson(Map<String, dynamic> json) {
@@ -130,8 +129,7 @@ class Restaurant {
         averageCostForTwo: json["average_cost_for_two"],
         cuisines: json["cuisines"],
         thumb: json["thumb"],
-        simpleRating: json["user_rating"]["aggregate_rating"]
-    );
+        simpleRating: json["user_rating"]["aggregate_rating"]);
   }
 
   Map<String, dynamic> toMap() => {
@@ -223,13 +221,12 @@ class UserRating {
       };
 }
 
-extension RestaurantConverter on RestaurantDetail{
+extension RestaurantConverter on RestaurantDetail {
   Restaurant toRestaurant() => Restaurant(
       id: this.id,
       name: this.name,
       averageCostForTwo: this.averageCostForTwo,
       cuisines: this.cuisines,
       thumb: this.thumb,
-      simpleRating: this.userRating.aggregateRating
-  );
+      simpleRating: this.userRating.aggregateRating);
 }

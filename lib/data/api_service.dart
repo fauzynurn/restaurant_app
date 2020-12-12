@@ -61,7 +61,7 @@ class ApiService {
   Future<RestaurantDetail> getRestaurant(String resId) async {
     final response = await _client.get('/restaurant',
         options:
-        Options(headers: {'accept': 'application/json', 'user-key': token}),
+            Options(headers: {'accept': 'application/json', 'user-key': token}),
         queryParameters: {
           'res_id': resId,
         });

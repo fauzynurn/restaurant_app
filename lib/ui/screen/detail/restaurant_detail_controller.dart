@@ -50,7 +50,7 @@ class RestaurantDetailController extends GetxController {
         } else {
           _restaurant.value = Result.error('Data cannot be fetched');
         }
-      }else{
+      } else {
         _restaurant.value = Result.error(_restaurant.value.message);
       }
     });
@@ -59,16 +59,16 @@ class RestaurantDetailController extends GetxController {
         .getReview(resId)
         .then((value) => _review.value = Result.completed(value.userReviews),
             onError: (error) {
-              if (error is DioError) {
-                if (error is SocketException) {
-                  _review.value =
-                      Result.error('There is a problem with the internet connection');
-                } else {
-                  _review.value = Result.error('Data cannot be fetched');
-                }
-              }else{
-                _review.value = Result.error(_review.value.message);
-              }
+      if (error is DioError) {
+        if (error is SocketException) {
+          _review.value =
+              Result.error('There is a problem with the internet connection');
+        } else {
+          _review.value = Result.error('Data cannot be fetched');
+        }
+      } else {
+        _review.value = Result.error(_review.value.message);
+      }
     });
   }
 }

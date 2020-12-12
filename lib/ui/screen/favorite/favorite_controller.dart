@@ -15,6 +15,10 @@ class FavoriteController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchFavoriteRestaurant();
+  }
+
+  void fetchFavoriteRestaurant() {
     _local.getFavoriteRestaurant().then(
         (value) => _favoriteList.value = Result.completed(value),
         onError: (error) => Result.error(error.toString()));
