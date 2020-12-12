@@ -21,9 +21,8 @@ class SettingController extends GetxController {
 
   Future<void> scheduleNotification() async {
     if (_restaurantNotification.value) {
-      debugPrint("alarm scheduled!!");
       return await AndroidAlarmManager.periodic(
-        Duration(seconds: 6),
+        Duration(hours: 24),
         1,
         BackgroundService.callback,
         startAt: getNotificationStartTime(),
@@ -31,7 +30,6 @@ class SettingController extends GetxController {
         wakeup: true,
       );
     } else {
-      debugPrint("alarm disabled!!");
       return await AndroidAlarmManager.cancel(1);
     }
   }
