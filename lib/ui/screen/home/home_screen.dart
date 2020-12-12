@@ -9,6 +9,7 @@ import 'package:restaurant_app/ui/screen/setting/setting_screen.dart';
 
 import '../result.dart';
 import 'home_controller.dart';
+import'dart:io' show Platform;
 
 class HomeScreen extends GetView<HomeController> {
   static const routeName = '/home';
@@ -121,7 +122,7 @@ class HomeScreen extends GetView<HomeController> {
           splashRadius: 18,
           onPressed: () => Get.toNamed(FavoriteScreen.routeName),
         ),
-        IconButton(
+        Platform.isAndroid ? IconButton(
           constraints: BoxConstraints(),
           icon: Icon(
             Icons.settings,
@@ -129,7 +130,7 @@ class HomeScreen extends GetView<HomeController> {
           ),
           splashRadius: 18,
           onPressed: () => Get.toNamed(SettingScreen.routeName),
-        )
+        ) : SizedBox()
       ],
     );
   }
