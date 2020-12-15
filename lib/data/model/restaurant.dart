@@ -129,7 +129,7 @@ class Restaurant {
         averageCostForTwo: json["average_cost_for_two"],
         cuisines: json["cuisines"],
         thumb: json["thumb"],
-        simpleRating: json["user_rating"]["aggregate_rating"]);
+        simpleRating: json["user_rating"]["aggregate_rating"].toString());
   }
 
   Map<String, dynamic> toMap() => {
