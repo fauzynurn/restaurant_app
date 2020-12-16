@@ -90,15 +90,18 @@ class SearchScreen extends GetView<SearchController> {
         child: Row(
           children: [
             Expanded(
-              child: TextField(
-                onSubmitted: (value) => controller.searchRestaurant(value),
-                decoration: InputDecoration(
-                    isDense: true,
-                    contentPadding: EdgeInsets.all(0),
-                    fillColor: Colors.transparent,
-                    border: InputBorder.none,
-                    hintText: 'Search restaurant',
-                    hintStyle: TextStyle(fontSize: 15)),
+              child: Material(
+                color: Colors.transparent,
+                child: TextField(
+                  onSubmitted: (value) => controller.searchRestaurant(value),
+                  decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.all(0),
+                      fillColor: Colors.transparent,
+                      border: InputBorder.none,
+                      hintText: 'Search restaurant',
+                      hintStyle: TextStyle(fontSize: 15)),
+                ),
               ),
             ),
             Icon(
